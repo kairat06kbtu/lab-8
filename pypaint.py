@@ -54,20 +54,20 @@ def main():
                 if event.button == 1:  
                     drawing = True
                     start_pos = event.pos 
-                    # Если выбран инструмент кисти или ластика, начинаем сразу рисовать точку
+                  
                     if tool in ['brush', 'eraser']:
                         color = (0, 0, 0) if tool == 'eraser' else get_color(mode)
                         pygame.draw.circle(canvas, color, event.pos, radius)
-                elif event.button == 4:  # Прокрутка вверх: увеличиваем размер кисти
+                elif event.button == 4:  
                     radius = min(200, radius + 1)
-                elif event.button == 5:  # Прокрутка вниз: уменьшаем размер кисти
+                elif event.button == 5: 
                     radius = max(1, radius - 1)
             
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
-                    drawing = False  # Отпускаем ЛКМ
-                    end_pos = event.pos  # Фиксируем конечную позицию для фигур
-                    # Если выбран инструмент для фигур, рисуем фигуру на холсте
+                    drawing = False 
+                    end_pos = event.pos  
+                    
                     if tool == 'rectangle':
                         rect = pygame.Rect(start_pos, (end_pos[0] - start_pos[0], end_pos[1] - start_pos[1]))
                         pygame.draw.rect(canvas, get_color(mode), rect, 2)
@@ -76,18 +76,18 @@ def main():
                         pygame.draw.ellipse(canvas, get_color(mode), rect, 2)
             
             if event.type == pygame.MOUSEMOTION:
-                # При перемещении мыши рисуем кистью или ластиком только если ЛКМ зажата
+               
                 if drawing and tool in ['brush', 'eraser']:
                     color = (0, 0, 0) if tool == 'eraser' else get_color(mode)
                     pygame.draw.circle(canvas, color, event.pos, radius)
 
-        # Отображаем холст на экране
+        
         screen.blit(canvas, (0, 0))
         pygame.display.flip()
         clock.tick(60)
 
 def get_color(color_mode):
-    # Функция возвращает цвет по заданному режиму
+   
     colors = {
         'blue': (0, 0, 255),
         'red': (255, 0, 0),
